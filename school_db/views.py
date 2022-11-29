@@ -200,6 +200,14 @@ SELECT `school_db_instructor`.`id`,
 # Get the count of students, courses, and instructors and print them in the terminal
 def problem_four(request):
 
+    students = Student.objects.count()
+    courses = Course.objects.count()
+    instructors = Instructor.objects.count()
+    print(f'Students Count: {students}')
+    print(f'Courses Count: {courses}')
+    print(f'Instructors Count: {instructors}')
+
+
     return complete(request)
 
 
@@ -244,6 +252,13 @@ SELECT COUNT(*) AS `__count`
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
 
+    student = Student.objects.create(first_name='Cody',last_name= "Dugas",year= 2022,gpa= 4.0)
+    print(f'ID: {student.id}')
+    print(f'Full Name: {student.first_name} {student.last_name}')
+    print(f'Year: {student.year}')
+    print(f'GPA: {student.gpa}')
+
+
     return complete(request)
 
 
@@ -277,7 +292,12 @@ VALUES ('Kyle', 'Harwood', 2022, 3.0)
 def problem_six(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
-    student_id = 11
+    """ student_id = 11 """
+    Student.objects.filter(pk=11).update(gpa=3.8)
+    student = Student.objects.get(pk=11)
+    print(f'Id: {student.id}')
+    print(f'Full Name: {student.first_name} {student.last_name}')
+    print(f'GPA: {student.gpa}')
 
     return complete(request)
 
@@ -325,7 +345,8 @@ def problem_seven(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
     student_id = 11
-
+    student = Student.objects.get(pk=11)
+    student = Student.objects.filter(pk=11).delete()
     try:
         student = Student.objects.get(pk=student_id)
     except ObjectDoesNotExist:
@@ -381,6 +402,9 @@ SELECT `school_db_student`.`id`,
 # Find all of the instructors that only belong to a single course
 # Print out the instructors full name and number of courses to the console
 def bonus_problem(request):
+
+
+
 
     return complete(request)
 
